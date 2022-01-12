@@ -1,0 +1,54 @@
+*{
+    background-color: rgb(227 205 205)
+}
+.heading{
+    text-align: center;
+    color: rgb(39, 39, 172);
+   font-size: 60px;
+}
+hr{
+    color: lavender;
+}
+h2{
+    color: rgb(103, 111, 128);
+}
+
+h2:first-letter{
+    font-size: 2rem;
+    }
+h3{
+    text-align: center;
+}
+h3:first-letter{
+font-size: 2rem;
+}
+.characters{
+    color: rgb(89, 0, 253);
+    font-weight: bolder;
+}
+a{
+    color: firebrick;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+.mood{
+    border-radius: 20px;
+    height: 250px;
+    width:250px;
+    vertical-align: middle;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+dt{
+    color: black;
+    font-weight: bolder;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+dd{
+    font-family: monospace;
+}

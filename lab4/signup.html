@@ -8,40 +8,44 @@
 <body>
 
 
-<form>
+<form action="http://mumstudents.org/params.php" method="post">
     <fieldset>
         <legend>New User Signup:</legend>
 
         <div class="form-control">
             <label>Name:</label>
-            <input type="text" name="name">
+            <input type="text" name="name" maxlength="16" size="16">
         </div>
 
         <div class="form-control">
             <label>Gender:</label>
-            <input type="radio" name="gender"><span>Male</span>
-            <input type="radio" name="gender"><span>Female</span>
+            <input type="radio" name="gender" value="MALE"><span>Male</span>
+            <input type="radio" name="gender" checked value="FEMALE"><span>Female</span>
         </div>
 
         <div class="form-control">
             <label>Age:</label>
-            <input type="number" name="age">
+            <input type="text" pattern="\d*" name="age" maxlength="2" size="6">
         </div>
 
         <div class="form-control">
             <label>Personality type:</label>
-            <input> (<code>Don't know your type</code>)
+            <input type="text" name="personalityType" maxlength="4" size="6"> (<code>Don't know your type</code>)
         </div>
 
         <div class="form-control">
             <label>Favorite OS:</label>
-            <input>
+            <select name="favoriteOs">
+                <option selected>Windows</option>
+                <option>Mac</option>
+                <option>Linux</option>
+            </select>
         </div>
 
         <div class="form-control">
             <label>Seeking age:</label>
-            <input type="text" placeholder="min"> <span>to</span>
-            <input type="text" placeholder="max">
+            <input type="text" placeholder="min" maxlength="2" pattern="\d*" size="6"> <span>to</span>
+            <input type="text" placeholder="max" maxlength="6" pattern="\d*" size="6">
         </div>
 
         <div class="form-control">
@@ -51,7 +55,5 @@
     </fieldset>
 
 </form>
-
-
 </body>
 </html>

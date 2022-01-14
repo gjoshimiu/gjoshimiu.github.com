@@ -3,11 +3,12 @@ body {
     text-align: center;
 }
 
+
 form {
     text-align: left;
     display: inline-block;
     background-color: #DFE1FF;
-    width: 500px;
+    width: 550px;
 }
 
 legend {
@@ -21,11 +22,25 @@ fieldset {
 }
 
 
-
 input[type="submit"] {
     background-color: #F8A8A6;
 }
 
-code{
+code {
     color: red;
+}
+
+.form-control {
+    height: 30px;
+    padding-top: 5px;
+}
+
+.form-control label {
+    width: 150px;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.form-control input[type="text"], input[type="number"] {
+    box-shadow: inset 10px 10px 5px white;
 }

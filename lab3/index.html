@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retrieve Grade</title>
+    <link rel="stylesheet" href="grade.css">
+</head>
+<body>
+<form action="http://mumstudents.org/params.php" method="post">
+    <div class="form">
+        <h1>Retrieve your grade</h1>
+        <div class="form-control">
+            <label>Name:</label>
+            <input type="text" name="name">
+        </div>
+        <div class="form-control">
+            <label>Student ID</label>
+            <input type="text" name="studentId">
+        </div>
+
+        <div class="form-control">
+            <label>Assignment</label>
+            <select name="assignment">
+                <option>Lab1</option>
+                <option>Lab2</option>
+                <option>Lab3</option>
+            </select>
+        </div>
+
+        <div class="form-control" style="display: inline-flex">
+            <input type="radio" name="studentEntry" value="November 2021"><span>November 2021</span>
+            <input type="radio" name="studentEntry" value="August 2021"><span>November 2021</span>
+        </div>
+
+        <div class="form-control">
+            <input type="checkbox" name="isOwnGrade" value="Own Grade"><span>Own Grade</span>
+        </div>
+
+        <div class="form-control">
+            <input type="submit" value="Submit">
+        </div>
+    </div>
+</form>
+</body>
+</html>

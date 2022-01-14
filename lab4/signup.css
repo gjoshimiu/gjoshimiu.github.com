@@ -1,0 +1,31 @@
+
+body {
+    text-align: center;
+}
+
+form {
+    text-align: left;
+    display: inline-block;
+    background-color: #DFE1FF;
+    width: 500px;
+}
+
+legend {
+    background-color: white;
+}
+
+fieldset {
+    border: none;
+    box-shadow: 2px 2px #6F6E7E;
+    height: 250px;
+}
+
+
+
+input[type="submit"] {
+    background-color: #F8A8A6;
+}
+
+code{
+    color: red;
+}

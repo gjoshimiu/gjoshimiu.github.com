@@ -42,10 +42,10 @@ Ans: refer to owner object
 Ans: refer to owner object
 
 6. Assume object x is the prototype for object y in Javascript. Object x has a method f( ) containing keyword 'this'. When f is called by x.f( ), what does 'this' refer to?
-Ans: own object including prototype
+Ans: objet x
 
 7. What is a free variable in JavaScript?
-Ans:
+Ans: a variable declared outside of function scope i.e explicitly or implicity
 
 8. Create an object that has properties with name = "fred" and major="music" and a property that is a function that takes 2 numbers and returns the smallest of the two, or the square of the two if they are equal.
 Ans:
@@ -64,8 +64,10 @@ const ab={
 9. Write Javascript code for creating three Employee objects using the "new" keyword and a constructor function. Employee objects have the following fields: name, salary, position.
 Ans:
 
-const employee= function(a,b,c){
- return {name: a, salary: b,position: c};
+const employee= function(name,salary,position){
+ this.name=name;
+ this.salary=salary;
+ this.position=position;
 }
 
 const emp1= new employee("Ganesh Joshi",200,"Mg");

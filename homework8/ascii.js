@@ -4,6 +4,11 @@ let myInterval;
 let speed = 250;
 let animationText = "";
 
+
+var rudyTimer = (function () {
+
+})();
+
 function startAnimation() {
     animationText = getAnimationText();
     fontSizeChange();

@@ -1,0 +1,14 @@
+*{
+    text-align: left;
+}
+
+.form-control{
+    float: left;
+    width: 100%;
+    text-align: left;
+    margin: 5px;
+}
+
+textarea{
+    font-size: large;
+}

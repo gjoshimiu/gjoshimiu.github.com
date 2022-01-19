@@ -5,7 +5,7 @@ let speed = 250;
 let animationText = "";
 
 function startAnimation() {
-    animationText = getAnimationText();
+    setAnimationText();
     fontSizeChange();
     const split = animationText.split("=====\n");
     let interval = 0;
@@ -30,6 +30,7 @@ function stopAnimation() {
 }
 
 function onAnimationTypeChange() {
+    setAnimationText();
     stopAnimation();
 }
 
@@ -60,10 +61,10 @@ function setValue(id, value) {
     document.getElementById(id).value = value;
 }
 
-function getAnimationText() {
+function setAnimationText() {
     const animationType = findValue("animationType");
     if (animationType === 'custom') {
-        return findValue("animationTextArea")
+        animationText = findValue("animationTextArea")
     }
-    return ANIMATIONS[animationType];
+    animationText = ANIMATIONS[animationType];
 }

@@ -2,7 +2,7 @@ body {
     margin: 16px;
     color: rgb(64, 64, 64);
     font-size: 11pt;
-    background-image: url("./images/silverware.jpg");
+    background-image: url("../images/silverware.jpg");
     font-family: Georgia, Garamond, sans-serif;
   }
 
@@ -41,7 +41,7 @@ body{
 }
 
 .listWithImage li{
-    list-style-image: url('./images/pie_icon.gif');
+    list-style-image: url('../images/pie_icon.gif');
 }
 
 

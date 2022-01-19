@@ -4,11 +4,6 @@ let myInterval;
 let speed = 250;
 let animationText = "";
 
-
-var rudyTimer = (function () {
-
-})();
-
 function startAnimation() {
     animationText = getAnimationText();
     fontSizeChange();
@@ -49,6 +44,7 @@ function fontSizeChange() {
 }
 
 function disableMe(id) {
+    console.log(document.getElementById(id))
     document.getElementById(id).setAttribute("disabled", "disabled");
 }
 

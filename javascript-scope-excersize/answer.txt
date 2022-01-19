@@ -1,0 +1,96 @@
+1. Determine what this Javascript code will print out (without running it):
+ x = 1;
+var a = 5;
+var b = 10;
+var c = function(a, b, c) {
+document.write(b); }
+c(8,9,10); document.write(b); document.write(x);
+}
+var x = 10; document.write(x); document.write(a);
+var f = function(a, b, c) {
+} f(a,b,c);
+b = a; document.write(b); b = c;
+var x = 5;
+
+Ans:
+
+=> 10
+=> 8
+=> 8
+=> 9
+=> 10
+=> 1
+
+2. What is the difference between a method and function?
+Ans:
+method:
+- associated with object
+
+function:
+- no object is associated
+- directly called with function name
+
+
+3. What does 'this' refer to when used in a Java method?
+Ans: In java this refers to the current object in a method or constructors.
+
+
+4. What does 'this' refer to when used in a JavaScript method?
+Ans: refer to owner object
+
+5. What does 'this' refer to when used in a JavaScript constructor function?
+Ans: refer to owner object
+
+6. Assume object x is the prototype for object y in Javascript. Object x has a method f( ) containing keyword 'this'. When f is called by x.f( ), what does 'this' refer to?
+Ans: own object including prototype
+
+7. What is a free variable in JavaScript?
+Ans:
+
+8. Create an object that has properties with name = "fred" and major="music" and a property that is a function that takes 2 numbers and returns the smallest of the two, or the square of the two if they are equal.
+Ans:
+
+const ab={
+    name: string,
+    major: string,
+    smallest: function(a,b){
+        if(a===b){
+            return a*b;
+        }
+        return a > b? b: a;
+    }
+}
+
+9. Write Javascript code for creating three Employee objects using the "new" keyword and a constructor function. Employee objects have the following fields: name, salary, position.
+Ans:
+
+const employee= function(a,b,c){
+ return {name: a, salary: b,position: c};
+}
+
+const emp1= new employee("Ganesh Joshi",200,"Mg");
+const emp2= new employee("Mahesh",100,"Mg");
+const emp3= new employee("Uruvi",200,"Mg");
+
+
+10. Write a Javascript function that takes any number of input arguments and returns the product of the arguments.
+Ans:
+const fun= function(...arg){
+	 return arg.reduce((pre,cur)=> pre * cur);
+}
+
+console.log(fun(1,2,3))
+
+11. Write an arrow function that returns the maximum of its three input arguments.
+Ans:
+const fun= (a,b,c)=>{
+	 if( a> b & a >c){
+   return a;
+   } else if(b > c){
+   return b;
+   }else{
+   return c;
+   }
+}
+
+console.log(fun(1,2,3))

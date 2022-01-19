@@ -4,7 +4,7 @@ const account = (function () {
     let name, balance;
 
     return {
-        createAccount() {
+        createAccount: function () {
             name= document.getElementById("name").value;
             balance = document.getElementById("deposit").value;
             accountInfoList.push({name: name,balance: balance});

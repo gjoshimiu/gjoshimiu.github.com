@@ -1,31 +1,30 @@
 $(document).ready(function () {
+    let startClicked = false;
 
-    $(document).keypress(function (value) {
-        if (value.key === 's' || value.key === 'S') {
-            $(document).unbind('keypress');
-            let val = true;
+    $('#start').click(function () {
+        $('.boundary').removeClass('youlose');
+        startClicked = true;
+        let firstClicked = true;
 
-            $(document).on('mouseover', 'div', function (e) {
-                if ($(e.target).hasClass('boundary') && val) {
-                    $('.boundary').css('background-color', '#FF8888');
-                    alert("Sorry, you lost. :[");
-                    $(document).unbind('mouseover');
-                    val = false;
-                }
+        $(document).on('mouseover', 'div', function (e) {
+            if ($(e.target).hasClass('boundary') && firstClicked && startClicked) {
+                $('.boundary').addClass('youlose');
+                alert("Sorry, you lost. :[");
+                $(document).unbind('mouseover', 'div');
+                firstClicked = false;
+            }
 
-            });
-
-            $('#end').mouseover(function () {
-                if (val) {
-                    alert("you win! :]");
-                }
-                $(document).unbind('mouseover');
-            })
-
-        }
+        });
 
 
     });
+
+    $('#end').mouseover(function () {
+        if (startClicked) {
+            startClicked = false;
+            alert("you win! :]");
+        }
+    })
 });
 
 

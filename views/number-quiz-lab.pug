@@ -1,0 +1,14 @@
+Doctype
+  html
+     head
+        title Exploring the Pug template
+     body
+        form(action="/check" method="post" id="checkSequence")
+            h1 The Number Quiz
+            p Your current score is  #{score}
+            p Guess the next number in sequence.
+            p #{data}
+            span Your answer
+                input(type='text' name="nextSequence")
+            br
+            input(type="submit" value="Submit")

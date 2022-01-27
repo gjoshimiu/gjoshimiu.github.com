@@ -1,0 +1,101 @@
+// ====================== N1 ======================================
+var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(200,
+        {'Content-Type': 'text/html'});
+    res.end('Hello World!');
+}).listen(8080);
+
+
+// ====================== N2 ======================================
+>> n2.js
+var http = require('http');
+
+var dt = require('./myModule');
+http.createServer(function (req, res) {
+    res.writeHead(200,
+        {'Content-Type': 'text/html'});
+    res.write("The date and time are currently: " + dt.myDate());
+    res.end();
+}).listen(8080);
+
+
+>> myModule.js
+var myDate = function () {
+    return Date();
+};
+exports.myDate = myDate;
+
+
+// ====================== N3 ======================================
+
+var http = require('http');
+var url = require('url');
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    var q = url.parse(req.url, true).query;
+    var txt = q.year + " " + q.month;
+    res.end(txt);
+}).listen(8080);
+
+
+// ====================== N4 ======================================
+
+>> AdderWebServer.js
+var http = require('http');
+var url = require('url');
+var fs = require('fs');
+var addmod = require('./addmod.js');
+http.createServer(function (req, res) {
+    var q = url.parse(req.url, true);
+    var filename = "." + q.pathname;
+    if (q.pathname == "/add.js")
+        addmod.add(req, res, q.query)
+    else
+        fs.readFile(filename, function (err, data) {
+            if (err) {
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                return res.end("404 Not Found");
+            }
+            res.writeHead(200); // Content-Type not included
+            res.write(data);
+            return res.end();
+        });
+}).listen(8080);
+
+>> SimpleAdder.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action=
+              "http://localhost:8080/add.js">
+    <div>Enter two numbers
+        <input type="text" name="first"/><br/>
+        <input type="text" name="second"/><br/>
+        <input type="submit" value="Click"/>
+    </div>
+</form>
+</body>
+</html>
+
+>> addmod.js
+
+exports.add = function (req, res, vals) {
+    var sum = parseInt(vals.first) + parseInt(vals.second);
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(`<!DOCTYPE html>
+<html>
+<head><meta charset=\"utf-8\"/>
+<title>Calculator Web Site</title>
+</head>
+<body>
+<p>The sum is: ${String(sum)}</p>
+</body>
+</html> `);
+    return res.end();
+};

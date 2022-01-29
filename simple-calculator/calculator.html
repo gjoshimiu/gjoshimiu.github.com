@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator!!</title>
+    <link href="static/style.css" rel="stylesheet"/>
+</head>
+<body>
+<form action="http://localhost:8080/calculate" method="post">
+    <div>
+        <span>Enter two numbers </span> <br/>
+        <span>Number One:</span> <input type="text" name="first"/><br/>
+        <span>Number Two:</span> <input type="text" name="second"/><br/>
+        <span>Operator:</span> <select name="operator">
+        <option value="+">Plus</option>
+        <option value="-">Minus</option>
+        <option value="*">Multiply</option>
+        <option value="/">Divide</option>
+    </select><br/>
+        <input type="submit" value="Click"/>
+    </div>
+</form>
+</body>
+</html>

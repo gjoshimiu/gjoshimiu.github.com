@@ -1,0 +1,84 @@
+===================== .js file ===========
+var express = require('express');
+const fs = require("fs");
+
+var app = express();
+app.use(require('body-parser').urlencoded({extended: false}));
+app.use('/static', express.static('public'));
+
+app.get("/", (req, res, next) => {
+    fs.readFile('simple-calculator/calculator.html', function (err, data) {
+        if (err) {
+            res.writeHead(404, {'Content-Type': 'text/html'});
+            return res.end("404 Not Found");
+        }
+        res.writeHead(200); // Content-Type not included
+        res.write(data);
+        return res.end();
+    });
+})
+    .post("/calculate", (req, res) => {
+        var body = req.body;
+        var firstNumber = parseInt(body.first);
+        var secondNumber = parseInt(body.second);
+        var operator = body.operator;
+        var result = 0;
+        if (operator === '+') {
+            result = firstNumber + secondNumber;
+        } else if (operator === '-') {
+            result = firstNumber - secondNumber;
+        } else if (operator === '*') {
+            result = firstNumber * secondNumber;
+        } else {
+            result = firstNumber / secondNumber;
+        }
+        fs.readFile('simple-calculator/calculator-result.html', function (err, data) {
+            if (err) {
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                return res.end("404 Not Found");
+            }
+            res.writeHead(200); // Content-Type not included
+            res.write(data.toString().replace("#result", result));
+            return res.end();
+        });
+    }).listen(8080);
+
+===================================== calculator.html =======================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator!!</title>
+    <link href="static/style.css" rel="stylesheet"/>
+</head>
+<body>
+<form action="http://localhost:8080/calculate" method="post">
+    <div>
+        <span>Enter two numbers </span> <br/>
+        <span>Number One:</span> <input type="text" name="first"/><br/>
+        <span>Number Two:</span> <input type="text" name="second"/><br/>
+        <span>Operator:</span> <select name="operator">
+        <option value="+">Plus</option>
+        <option value="-">Minus</option>
+        <option value="*">Multiply</option>
+        <option value="/">Divide</option>
+    </select><br/>
+        <input type="submit" value="Click"/>
+    </div>
+</form>
+</body>
+</html>
+
+===================================== calculator-result.html =======================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+
+<a href="http://localhost:8080">Another Calculation</a>
+<p>#result</p>
+</body>
+</html>

@@ -28,6 +28,14 @@ Sample HTML:
     <button id="makeDivBackgroundColorRed">Find All H1</button>
 </p>
 
+<pre>
+    $(document).ready(function () {
+
+    $("#makeDivBackgroundColorRed").click(function () {
+        $(" div h1").css("background-color", "red");
+    });
+});
+</pre>
 <hr/>
 <h3>3. Use a jQuery method to insert the text "YES!" at the end of the &lt;p&gt; element.</h3>
 <pre>
@@ -47,9 +55,14 @@ Sample HTML:
 <p id="question3">
     Ans: <br/>
 
-
-
 </p>
+
+<pre>
+    $(document).ready(function () {
+
+    $("p#question3").append('<span>YES</span>');
+});
+</pre>
 
 </body>
 

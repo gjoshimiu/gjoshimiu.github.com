@@ -1,0 +1,52 @@
+
+* {
+    margin: 0;
+}
+
+.search {
+    background-color: #EEEEEE;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+}
+
+h1 {
+    background-color: #DDDDDD;
+    width: 100%;
+    padding: 10px;
+}
+
+input[type="button"] {
+    padding-left: 10px;
+}
+
+p {
+    height: auto;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+p:nth-child(even) {
+    background-color: #DFE1FF;
+}
+
+#result {
+    height: auto;
+    width: 100%;
+    min-height: 500px;
+}
+
+.noRecordFound {
+    color: red;
+    font-size: 18px;
+}
+
+.index {
+    font-weight: bold;
+}
+
+#w3c {
+    float: right;
+    position: relative;
+}

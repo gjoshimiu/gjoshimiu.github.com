@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dictionary Result</title>
+    <style>
+        pre {
+            margin-top: 10px;
+            width: 100%;
+            color: brown;
+        }
+
+        p.title {
+            color: #8888ff;
+            background-color: #DDDDDD;
+            width: 100%;
+            height: 20px;
+            font-size: 18px;
+        }
+        span.title{
+            color: brown;
+            background-color: #DDDDDD;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+<pre>
+    <p class="title">package.json</p>
+{
+  "name": "gjoshimiu.github.com",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "mysql": "^2.18.1"
+  }
+}
+
+</pre>
+
+<pre>
+    <p class="title">Dictionary.js</p>
+var express = require('express');
+var path = require('path');
+var db = require('./word')
+const bodyparser = require('body-parser');
+var app = express();
+
+app.use(bodyparser.json());
+app.use(express.static(__dirname + '/public'));
+app.set('views', path.join(__dirname, 'public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+app.get('/', ((req, res, next) => {
+    res.render('dict');
+}));
+
+app.get('/search', async (req, res) => {
+    res.set('Content-Type', 'application/json');
+    const search = req.query.queryText;
+    res.status(200);
+    await db.findWord(search, function(data) {
+        res.send(data);
+    });
+});
+
+app.listen(3000, () => {
+    console.log('Server running 3000!!');
+})
+</pre>
+
+<pre>
+    <p class="title">Word.js</p>
+const mysql = require('mysql')
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'entries',
+})
+
+module.exports = {
+    findWord: async function findWord(text, callback) {
+        await connection.query('SELECT * from entries where word = ?', [text], function(err, rows, fields) {
+            if (err) {
+                console.log(err)
+                throw err
+            }
+            let data = [];
+            for (let row of rows) {
+                data.push({
+                    word: row.word,
+                    wordtype: row.wordtype,
+                    definition: row.definition
+                })
+            }
+            callback(data)
+        });
+
+    }
+};
+</pre>
+
+<pre>
+    <p class="title">dict.html</p>
+    &lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;WAP Dictionary&lt;/title&gt;
+    &lt;link rel="stylesheet" href="dict.css"&gt;
+    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script src="dict.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div&gt;
+    &lt;h1&gt;WAP Online Dictionary&lt;/h1&gt;
+    &lt;div class="search"&gt;
+        &lt;label&gt;Term: &lt;input type="text" id="searchText"&gt;&lt;/label&gt;&lt;input type="button" value="Lookup" id="lookup"&gt;
+    &lt;/div&gt;
+    &lt;div id="result"&gt;
+    &lt;/div&gt;
+    &lt;div id="w3c"&gt;
+        &lt;a href="https://webster.cs.washington.edu/validate-html.php"&gt;
+            &lt;img src="http://mumstudents.org/cs472/2014-09/images/w3c-html.png" alt="Valid HTML"&gt;&lt;/a&gt;
+        &lt;a href="https://webster.cs.washington.edu/validate-css.php"&gt;
+            &lt;img src="http://mumstudents.org/cs472/2014-09/images/w3c-css.png" alt="Valid CSS"&gt;&lt;/a&gt;
+        &lt;a href="https://webster.cs.washington.edu/jslint/?referer"&gt;
+            &lt;img src="http://mumstudents.org/cs472/2014-09/images/w3c-js.png" alt="Valid JS"&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre>
+    <p class="title">dict.css</p>
+
+* {
+    margin: 0;
+}
+
+.search {
+    background-color: #EEEEEE;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+}
+
+h1 {
+    background-color: #DDDDDD;
+    width: 100%;
+    padding: 10px;
+}
+
+input[type="button"] {
+    padding-left: 10px;
+}
+
+p {
+    height: auto;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+p:nth-child(even) {
+    background-color: #DFE1FF;
+}
+
+#result {
+    height: auto;
+    width: 100%;
+    min-height: 500px;
+}
+
+.noRecordFound {
+    color: red;
+    font-size: 18px;
+}
+
+.index {
+    font-weight: bold;
+}
+
+#w3c {
+    float: right;
+    position: relative;
+}
+</pre>
+<pre>
+    <p class="title">dict.js</p>
+$(function() {
+
+    $('#lookup').click(function() {
+        $.get('http://localhost:3000/search', {
+            'queryText': $('#searchText').val()
+        }).done(function(params) {
+            var result = $('#result');
+            result.empty();
+            if (params.length === 0) {
+                result.html('No record found');
+            } else {
+                result.html(params.map(((row, index) => {
+                    let wordTypeElement = '';
+                    if (row.wordtype) {
+                        wordTypeElement = '(' + row.wordtype + ')';
+                    }
+                    return '
+                    ' + (index + 1) + wordTypeElement + '::' + row.definition + '
+
+                    '
+                })));
+            }
+        }).fail(function(err) {
+            console.error(err);
+        });
+    });
+});
+</pre>
+<pre>
+    <p class="title">Screen Shot</p>
+    <span class="title">Main Page</span>
+    <img src="public/Screen%20Shot%202022-02-02%20at%209.42.20%20AM.png" alt="1"><br/><br/>
+    <span class="title">Record found</span>
+    <img src="public/Screen%20Shot%202022-02-02%20at%209.43.14%20AM.png" alt="2"><br/><br/>
+    <span class="title">Record Not Found</span>
+    <img src="public/Screen%20Shot%202022-02-02%20at%209.43.38%20AM.png" alt="3"><br/><br/>
+
+</pre>
+</body>
+</html>
